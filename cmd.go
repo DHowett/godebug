@@ -223,7 +223,12 @@ func doBuild(args []string) {
 		goArgs = mapToTmpDir(tmpDir, goArgs)
 	}
 
-	bin := filepath.Base(strings.TrimSuffix(goArgs[0], ".go")) + ".debug"
+	exeSuffix := ""
+	if conf.Build.GOOS == "windows" {
+		exeSuffix = ".exe"
+	}
+
+	bin := filepath.Base(strings.TrimSuffix(goArgs[0], ".go")) + ".debug" + exeSuffix
 	if *o != "" {
 		bin = *o
 	}
